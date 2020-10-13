@@ -15,3 +15,5 @@ echo -e "Temperature of GPU is:\t$gpu_temp"
 echo -e "Memory (usage/total):\t$mem_usg / $mem_total"
 echo -e "GPU usage:\t\t$gpu_usage"
 echo ""
+
+rm temp.txt
