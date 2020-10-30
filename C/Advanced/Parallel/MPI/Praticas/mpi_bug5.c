@@ -44,7 +44,10 @@ int main(int argc, char *argv[]) {
 }
 
 /*
-  PROBLEMA: Tipos?
+  PROBLEMA: Quando faz send, o processo 1 ao recever, os valores recevidos sao todos 0 (zeros)
+  HIPOTSE1: Deslocaçao mal formatada!
+  DUVIDA: O que faz a funçao Type_indexed??
+  
   CORREÇAO: ???
 
 
