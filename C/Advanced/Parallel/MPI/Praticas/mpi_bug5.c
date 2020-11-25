@@ -23,25 +23,40 @@ int main(int argc, char *argv[]) {
   }
 
   printf("Proc %d starting...\n", rank);
+  
   tag = 0;
   src = 0;
+  
+  //Tamanho dos blocos
   blocklengths[0] = 2;
-  blocklengths[1] = 3;
+  blocklengths[1] = 2;
+  
+  //Ponto de começo de cada bloco
   displacements[0] = 5;
   displacements[1] = 12;
+  
   MPI_Type_indexed(2, blocklengths, displacements, MPI_FLOAT, &indextype);
   MPI_Type_commit(&indextype);
+  
   if (rank == 0)
-    for (i = 0; i < numprocs; i++){
+    for (i = 1; i < numprocs; i++){
       MPI_Send(a, 1, indextype, i, tag, MPI_COMM_WORLD);
       printf("Proc %d sending info...\n", rank);
     }
-  MPI_Recv(b, SIZE, indextype, src, tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  printf("Proc %d received b = %3.1f %3.1f %3.1f %3.1f\n", rank, b[0], b[1], b[2], b[3]);
+  else {
+    MPI_Recv(b, SIZE, MPI_FLOAT, src, tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    printf("Proc %d received b = %3.1f %3.1f %3.1f %3.1f\n", rank, b[0], b[1], b[2], b[3]);
+  }
   
   MPI_Type_free(&indextype);
   MPI_Finalize();
 }
+
+
+
+
+
+
 
 /*
   PROBLEMA: Quando faz send, o processo 1 ao recever, os valores recevidos sao todos 0 (zeros)

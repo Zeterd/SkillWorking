@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     for (i = 0; i < numprocs; i++)
       MPI_Send(&a[i][0], 1, rowtype, i, tag, MPI_COMM_WORLD);
   }
-  MPI_Recv(b, SIZE, rowtype, src, tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+  MPI_Recv(b, 1, rowtype, src, tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
   printf("Proc %d received b = %3.1f %3.1f %3.1f %3.1f\n", rank, b[0], b[1], b[2], b[3]);
 
   MPI_Type_free(&rowtype);

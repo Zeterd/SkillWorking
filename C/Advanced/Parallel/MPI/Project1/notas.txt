@@ -1,0 +1,48 @@
+1º objetivo
+   - Fazer um programa que fosse single core para perceber melhor o conceito do problema
+
+Relatorio ao longo do 1º objetivo:
+ - Fazer input de uma matrix (done)
+    (uso de malloc and free)
+ - Fazer input dos parametros
+ - Como fazer a grid
+   SOL: usar inteiro** para criar uma especie de matriz 2D
+ - Como implementar o algoritmo?
+ 
+ 1º execuçao do 1º ojetivo:
+   - Como sempre erros na compilaçao :)
+   - Depois de corrigidos os erros alguns problemas em segmentaçao mas rapidamente corrigidos
+   - Uso da variavel predefinida do C de INFINITO nao resultou (AINDA A CORRIGIR)   
+         --> Neste momento estou a usar uma variavel com um grnade valor a representar o INFINITO
+   - Programa a calcular com sucesso
+   - Exprimentaçao de outros inputs
+   - Uso de uma libraria de TIME.h para medir tempo de execuçao(AINDA A FAZER)
+
+  Resultados:
+   Specs Maquina:
+      i7-4770HQ (4cores/8threads) 3.3Ghz
+      16GB RAM
+
+   Teste de varios inputs de varios tamanhos usando apenas 1 processador
+  
+   Ficheiro          N*N            Tempo(segundos)     
+   
+   Input-padrao:     6              0.00                    
+   Input300          300            1.77                    
+   Input600          600            17.84                   
+   Input900          900            64.80                   
+   Input1200         1200           251.10
+
+   (//TODO: desenhar grafico bonito com a representaçao de resultados)
+
+2º objetivo -- Começar a pensar em paralelo!!
+   - Que estrategia usar
+      Blocking or non-blocking
+      Uso de comunicador global ou outros em especificos
+      Como comunicar a memoria? Uso de metodos proprios?
+      SendRecv vs ScatterGather
+      AllReduce? AllGather?
+      Bcast?
+      Perceber o algoritmo FOX
+
+
