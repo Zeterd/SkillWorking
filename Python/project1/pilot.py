@@ -172,7 +172,50 @@ try:
 except ValueError:
     print("Your input is not valid!!")
 
+#Reading Files
 
+file = open("teste.txt", "r")
+
+print(file.readable()) #true if flag in open is set to r else false
+print(file.read()) #read all file
+print(file.readline) #print only one line
+print(file.readlines()) #each element of a list is the line readed
+
+file.close()
+
+#Append Files
+
+file = open("teste.txt", "a")
+file.write("Another one")
+file.close()
+
+#Writing Files
+
+file = open("teste.txt", "w")
+file.write("New World")
+file.close()
+
+#Classes
+
+class Student:
+    def __init__(self, name, age, curse, year_curse, universety, is_graduated):
+        self.name = name
+        self.age = age
+        self.curse = curse
+        self.year_curse = year_curse
+        self.universety = universety
+        self.is_graduated = is_graduated
+
+    def is_last_year(self):
+        if self.year_curse == 5:
+            return True
+        else:
+            return False
+    
+st1 = Student("Jose",23,"Eng. Redes", 5, "FCUP", False)
+st2 = Student("Crisanto",22,"Segurança Informatica", 5, "ISTEC", True)
+
+print(st1.is_last_year())
 
 
 
