@@ -1,0 +1,41 @@
+Compressor/Descompressor Lev-Zip
+
+//TODO
+  1ª Fase
+    - Tuturial em base de python3
+    - Ver manipulaçao de argumentos
+    - Ver manipulaçao de ficheiros
+
+  2ª Fase
+    - Ver a biblioteca bitstring
+    - Ver algoritmo Lev-Zip
+    - Estabeler estrategia
+    - Terminar projeto
+
+  3ª Fase
+    - Testes aos programas
+    - Correçao de bugs e otimizaçao
+
+//Objetivos
+    - Uso de python3
+    - Uso da biblioteca bitstring
+    - Dois programas:
+        + Programa para comprimir (compress.py) em que tem como argumentos:
+            $ compress.py ficheiro.txt ficheiro.lz
+
+            ficheiro.txt -> ficheiro a comprimir
+            ficheiro.ls  -> resultado do ficheiro comprimido
+
+        + Programa para descomprir (decompress.py) em que tem como argumentos:
+            $ decompress.py ficheiro.txt ficheiro.lz
+
+            ficheiro.txt -> ficheiro a descomprir
+            ficheiro.ls  -> resultado do ficheiro descomprimido
+
+//AGENDA            
+    Termio da 1ª fase --> 5 de Dezembro*
+    Termio da 2ª fase --> 10 de Dezembro*
+    *maximo
+
+    Entrega dia 11 de Dezembro
+
