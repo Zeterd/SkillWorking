@@ -44,5 +44,15 @@ Relatorio ao longo do 1º objetivo:
       AllReduce? AllGather?
       Bcast?
       Perceber o algoritmo FOX
+      Uso de MPI_Cartesiano?? (Averiguar!!)
+
+   - Non-blocking Functions:
+      Bcast 1->N
+      Scatter 1->N
+      Gather N->1
+      Reduce 1->N
+      AllReduce N->N
+      AllGather N->N
+
 
 
