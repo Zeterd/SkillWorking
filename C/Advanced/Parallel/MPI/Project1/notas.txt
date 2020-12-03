@@ -22,6 +22,8 @@ Relatorio ao longo do 1º objetivo:
    Specs Maquina:
       i7-4770HQ (4cores/8threads) 3.3Ghz
       16GB RAM
+   Specs Maquinas Lab FCUP:
+      //TODO
 
    Teste de varios inputs de varios tamanhos usando apenas 1 processador
   
@@ -33,7 +35,10 @@ Relatorio ao longo do 1º objetivo:
    Input900          900            64.80                   
    Input1200         1200           251.10
 
-   (//TODO: desenhar grafico bonito com a representaçao de resultados)
+   (
+      //TODO: desenhar grafico bonito com a representaçao de resultados
+      //TODO: nao so fazer a comparaçao de performace/tempo mas tambem a memoria ocupada
+   )
 
 2º objetivo -- Começar a pensar em paralelo!!
    - Que estrategia usar
@@ -54,5 +59,7 @@ Relatorio ao longo do 1º objetivo:
       AllReduce N->N
       AllGather N->N
 
-
+UPDATE:
+   Apos da primeira execuçao com input6 e 4CPUs o programa entra em loop infinito
+      PROB: MPI_Sendrecv blocqueado!!
 
