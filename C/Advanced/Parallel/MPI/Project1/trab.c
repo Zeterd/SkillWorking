@@ -45,7 +45,9 @@ int main(int argc, char *argv[]){
     MPI_Bcast(&flag, 1, MPI_INT, ROOT, MPI_COMM_WORLD);
     
     if(!flag){
-        printf("Algoritmo nao aplicado!!. ABORTAR EXECUCAO!!");
+        if(rank == ROOT)
+            printf("ERROR: Invalid configuration!\n");
+        
         MPI_Finalize();
         return 0;
     }
@@ -65,7 +67,7 @@ int main(int argc, char *argv[]){
         input_matrix(matrix, n);
     }
 
-    MPI_Barrier(MPI_COMM_WORLD);
+    //MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(&(matrix[0][0]), n*n, MPI_INT, ROOT, MPI_COMM_WORLD);
 
     
@@ -94,6 +96,8 @@ int main(int argc, char *argv[]){
 
     MPI_Barrier(MPI_COMM_WORLD);
     
+    double start = MPI_Wtime();
+
     for(int step=1; step<n-1; step*=2){
 
         fox_algorithm(matrix_A, matrix_B, matrix_C, &grid, n2);
@@ -104,18 +108,15 @@ int main(int argc, char *argv[]){
 
     }
     
-    free_matrix(matrix_A, n2);
-    free_matrix(matrix_B, n2);
-    
+    int** res_m;
+    alloc_matrix(&res_m, n2);
+
     //Processos nao raiz vao enviar resultado para o processo ROOT
     if(rank != ROOT) {
         MPI_Send(&matrix_C[0][0], n2*n2, MPI_INT, ROOT, 0, MPI_COMM_WORLD);
     }
     
-    int** res_m;
-    alloc_matrix(&res_m, n2);
-
-    if(rank == ROOT) {
+    else {
         for(int i=0; i<n2; i++){
             for(int j=0; j<n2; j++){
                 if(matrix_C[i][j] == INF){
@@ -148,11 +149,15 @@ int main(int argc, char *argv[]){
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
+    double finish = MPI_Wtime();
 
     if(rank == ROOT){
         print_matrix(matrix, n);
+        printf("Execution time: %.5lf\n", (finish-start));
     }
 
+    free_matrix(matrix_A, n2);
+    free_matrix(matrix_B, n2);
     free_matrix(matrix, n);
     free_matrix(matrix_C, n2);
     free_matrix(res_m, n);
@@ -204,6 +209,7 @@ void init_grid(GRID_T* grid) {
 
 //Aloca matrix em memoria e inicializa valores a zeros
 void alloc_matrix(int ***matrix, int n){
+    
     int *p = (int*)malloc(n*n*sizeof(int*));
     //printf("ALLC 1\n");
     (*matrix) = (int**)malloc(n*sizeof(int*));
@@ -212,6 +218,7 @@ void alloc_matrix(int ***matrix, int n){
         (*matrix)[i] = &(p[i*n]);
     }
     //printf("ALLC 3\n"); 
+    
 }
 
 //Input da matrix
@@ -231,7 +238,7 @@ void input_matrix(int **matrix, int n) {
 void split_matrix(int** matrix, GRID_T* grid, int** m, int n) {
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            m[i][j] = matrix[grid->row*n+1][grid->col*n+1];
+            m[i][j] = matrix[grid->row*n+i][grid->col*n+j];
         }
     }
 }
@@ -277,11 +284,11 @@ void fox_algorithm(int** matrix_A, int** matrix_B, int** matrix_C, GRID_T* grid,
             min_plus_alg(aux_m, matrix_B, matrix_C, n2);
         }
 
-        MPI_Send(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, grid->cols);
+        //MPI_Send(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, grid->cols);
 
-        MPI_Recv(&matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
+        //MPI_Recv(&matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
 
-        //MPI_Sendrecv(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, &matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
+        MPI_Sendrecv(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, &matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
     } 
 }
 
