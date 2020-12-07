@@ -5,7 +5,7 @@
 #include <limits.h>
 #include "grid_type.h"
 
-#define INF 999999
+#define INF SHRT_MAX*3
 #define ROOT 0
 #define FALSE 0
 #define TRUE 1
@@ -26,6 +26,7 @@ void print_matrix(int** matrix, int n);
 
 //Main
 int main(int argc, char *argv[]){
+    
     int n, p, rank, flag=FALSE;
     GRID_T grid;
     int **matrix;
@@ -284,11 +285,11 @@ void fox_algorithm(int** matrix_A, int** matrix_B, int** matrix_C, GRID_T* grid,
             min_plus_alg(aux_m, matrix_B, matrix_C, n2);
         }
 
-        //MPI_Send(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, grid->cols);
+        MPI_Send(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, grid->cols);
 
-        //MPI_Recv(&matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
+        MPI_Recv(&matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
 
-        MPI_Sendrecv(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, &matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
+        //MPI_Sendrecv(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, &matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
     } 
 }
 

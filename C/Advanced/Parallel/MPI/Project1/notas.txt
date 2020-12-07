@@ -62,4 +62,23 @@ Relatorio ao longo do 1º objetivo:
 UPDATE:
    Apos da primeira execuçao com input6 e 4CPUs o programa entra em loop infinito
       PROB: MPI_Sendrecv blocqueado!!
+      SOL: some bugs in the way...
+   
+   Apos completaçao do codigo, os processador crasham
+      PROB: sem \n nos printfs
+      SOL: adicionar \n nos printfs daaah...
+
+   Apos correçao de erros, o output esta errado
+      PROB:
+         (1) -> Allocaçao mal da memoria
+         (2) -> Send e Recv mal coordenados
+         (3) -> Algum bug ao longo do codigo
+
+         SOL: era o ponto (3) que tava certo e por isso foi feita a correçao
+
+   Iniciaçao de testes locais
+
+   Iniciaçao de testes nas maquinas dos labs
+      PROB: Ainda nao tenho acesso as maquinas dos labs
+      SOL: Chamar a policia ao gabinete do paulo :)
 
