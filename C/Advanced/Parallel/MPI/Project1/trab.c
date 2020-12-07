@@ -69,12 +69,11 @@ int main(int argc, char *argv[]){
         input_matrix(matrix, n);
     }
 
-    //MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(&(matrix[0][0]), n*n, MPI_INT, ROOT, MPI_COMM_WORLD);
 
     
 
-    int n2 = n/2;
+    int n2 = n/((int)sqrt(p));
 
     int **matrix_A, **matrix_B, **matrix_C; 
     
@@ -154,7 +153,7 @@ int main(int argc, char *argv[]){
     double finish = MPI_Wtime();
 
     if(rank == ROOT){
-        //print_matrix(matrix, n);
+        print_matrix(matrix, n);
         printf("Execution time: %.5lf\n", (finish-start));
     }
 
@@ -322,7 +321,10 @@ void free_matrix(int** matrix, int n) {
 void print_matrix(int** matrix, int n){
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            printf("%d ", matrix[i][j]);
+            if(matrix[i][j] == INF)
+                printf("%d ", 0);
+            else 
+                printf("%d ", matrix[i][j]);
         }
         printf("\n");
     }
