@@ -4,6 +4,7 @@
 #include <math.h>
 #include <limits.h>
 #include "grid_type.h"
+#include <unistd.h>
 
 #define INF SHRT_MAX*3
 #define ROOT 0
@@ -153,7 +154,7 @@ int main(int argc, char *argv[]){
     double finish = MPI_Wtime();
 
     if(rank == ROOT){
-        print_matrix(matrix, n);
+        //print_matrix(matrix, n);
         printf("Execution time: %.5lf\n", (finish-start));
     }
 
@@ -285,11 +286,13 @@ void fox_algorithm(int** matrix_A, int** matrix_B, int** matrix_C, GRID_T* grid,
             min_plus_alg(aux_m, matrix_B, matrix_C, n2);
         }
 
-        MPI_Send(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, grid->cols);
+        //MPI_Send(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, grid->cols);
 
-        MPI_Recv(&matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
+        //MPI_Recv(&matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
 
-        //MPI_Sendrecv(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, &matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
+        sleep(0);
+        MPI_Sendrecv(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, &matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
+   
     } 
 }
 
