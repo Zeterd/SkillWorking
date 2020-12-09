@@ -53,7 +53,6 @@ int main(int argc, char *argv[]){
         MPI_Finalize();
         return 0;
     }
-    
 
     init_grid(&grid);
 
@@ -63,15 +62,11 @@ int main(int argc, char *argv[]){
     
     alloc_matrix(&matrix, n);
 
-    
-
     if(rank == ROOT) {
         input_matrix(matrix, n);
     }
 
     MPI_Bcast(&(matrix[0][0]), n*n, MPI_INT, ROOT, MPI_COMM_WORLD);
-
-    
 
     int n2 = n/((int)sqrt(p));
 
@@ -81,19 +76,11 @@ int main(int argc, char *argv[]){
     alloc_matrix(&matrix_B, n2);
     alloc_matrix(&matrix_C, n2);
 
-    
-
     split_matrix(matrix, &grid, matrix_A, n2);
-
-    
 
     matrix_B = copy_matrix(matrix_A, n2);
 
-    
-
     fill_matrix(matrix_C, INF, n2);
-
-    
 
     MPI_Barrier(MPI_COMM_WORLD);
     
@@ -284,10 +271,6 @@ void fox_algorithm(int** matrix_A, int** matrix_B, int** matrix_C, GRID_T* grid,
             MPI_Bcast(&aux_m[0][0], n2*n2, MPI_INT, root, grid->rows);
             min_plus_alg(aux_m, matrix_B, matrix_C, n2);
         }
-
-        //MPI_Send(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, grid->cols);
-
-        //MPI_Recv(&matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
 
         sleep(0);
         MPI_Sendrecv(&matrix_B[0][0], n2*n2, MPI_INT, d, 0, &matrix_B[0][0], n2*n2, MPI_INT, o, 0, grid->cols, MPI_STATUS_IGNORE);
