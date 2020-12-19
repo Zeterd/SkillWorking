@@ -5,7 +5,7 @@ from math import log2
 from math import ceil
 
 def main():
-    
+    print(1)
 
 
 if __name__ == "__main__":

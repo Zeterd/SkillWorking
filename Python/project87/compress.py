@@ -11,7 +11,7 @@ def main():
         msg = ConstBitStream(Bits(file))
         msg = Bits(file).bin
     else:
-        msg = '%$"##$"%$#&%$/&(&/)/()(%$&#'
+        msg = ''
     
     keys = ['E']
     output = ''
