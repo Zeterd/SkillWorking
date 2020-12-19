@@ -2,9 +2,9 @@ Compressor/Descompressor Lev-Zip
 
 //TODO
   1ª Fase
-    - Tuturial em base de python3
-    - Ver manipulaçao de argumentos
-    - Ver manipulaçao de ficheiros
+    - Tuturial em base de python3(DONE)
+    - Ver manipulaçao de argumentos(DONE)
+    - Ver manipulaçao de ficheiros(DONE)
 
   2ª Fase
     - Ver a biblioteca bitstring
@@ -31,11 +31,11 @@ Compressor/Descompressor Lev-Zip
 
             ficheiro.txt -> ficheiro a descomprir
             ficheiro.ls  -> resultado do ficheiro descomprimido
+    - A execuçao ate 5 min ou ate 10 min no maximo!!
+    
+
 
 //AGENDA            
-    Termio da 1ª fase --> 5 de Dezembro*
-    Termio da 2ª fase --> 10 de Dezembro*
-    *maximo
-
-    Entrega dia 11 de Dezembro
+    
+    Entrega dia 13 de Dezembro
 
