@@ -1,0 +1,16 @@
+A lingiuagem go e muito organizada pois mesmo tendo variaveis
+a nao serem usadas, para o go sao erros de compilacao.
+
+variaveis nao podem ser redefinidas na mesma funcao, ou seja:
+
+    package main
+
+    func main(){
+        var i int = 56
+
+        bla bla bla
+
+        var i int = 34
+    }
+
+Na funcao acima o compilador vai dar erro de compilacao
