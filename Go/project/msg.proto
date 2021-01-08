@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package project;
+
+// MESSAGES
+
+message Message {
+    string tag = 1;
+    bytes text = 2;
+    string time = 3;
+}
+
+message Identity {
+    int32 id = 2;
+}
+
+message Subscription {
+    repeated Message messages = 1;
+    Identity id = 2;
+}
+
+message Subs_Request {
+    string tag = 1;
+    int32 id = 2;
+}
+
+message Bool {
+    bool flag = 1;
+}
+
+message Tag {
+    string tag = 1;
+}
+
+message Tags {
+    repeated string tags = 1;
+
+}
+
+// SERVICES
+
+
+service Publisher {
+    rpc Publish(Message) returns (Identity) {}
+}
+
