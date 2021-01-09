@@ -1,11 +1,10 @@
-package main
+package server
 
 import (
-	"flag"
 	"log"
 	"net"
-	"strconv"
 	"google.golang.org/grpc"
+
 	pb "github.com/Zeterd/SkillWorking/Go/project"
 )
  
@@ -18,11 +17,11 @@ func main(){
 		log.Fatalf("Error listen on port :9000 %v", err)
 	}
 
-	s := publisher.Server{}
+	s := protoDoc.Server{}
 
 	server := grpc.NewServer()
 
-	publisher.RegisterChatServiceServer(server, &s)
+	protoDoc.RegisterChatServiceServer(server, &s)
 
 	if err := server.Serve(lis); err != nil {
 		log.Fatalf("Error to serve grpc server on port :9000: %v", err)

@@ -8,7 +8,7 @@ import (
 )
 
 type Publisher struct {
-
+	
 }
 
 func(p * Publisher) Publish(ctx context.Context, msg * Message) (*Identity) {

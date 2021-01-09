@@ -1,4 +1,4 @@
-package main
+package publisher
 
 import (
 	"log"
@@ -6,7 +6,7 @@ import (
 	"google.org/x/net/context"
 	"google.golang.org/grpc"
 
-	 pb"github.com/Zeterd/SkillWorking/Go/project"
+	pb "github.com/Zeterd/SkillWorking/Go/project"
 )
 
 func main()  {
@@ -23,7 +23,7 @@ func main()  {
 	c := pb.NewChatServiceClient(conn)
 
 	msg := pb.Message{
-		Tag: "lisence",
+		Tag: "license",
 		Text: "GNU licence by Ubuntu 20.04LTS",
 		TimeStanp: "09:01:2021::00:35:45"
 	}

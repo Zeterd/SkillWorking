@@ -11,7 +11,7 @@ message Message {
 }
 
 message Identity {
-    int32 id = 2;
+    int32 id = 1;
 }
 
 message Subscription {
