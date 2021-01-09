@@ -6,7 +6,7 @@ import (
 	"net"
 	"strconv"
 	"google.golang.org/grpc"
-	"gituhub.com/Zeterd/SkillWorking/Go/project"
+	pb "github.com/Zeterd/SkillWorking/Go/project"
 )
  
 

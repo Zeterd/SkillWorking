@@ -6,7 +6,7 @@ import (
 	"goole.org/x/net/context"
 	"goole.golang.org/grpc"
 
-	"gituhub.com/Zeterd/SkillWorking/Go/project"
+	 pb"github.com/Zeterd/SkillWorking/Go/project"
 )
 
 func main()  {
@@ -20,9 +20,9 @@ func main()  {
 	
 	defer conn.Close()
 
-	c := chat.NewChatServiceClient(conn)
+	c := pb.NewChatServiceClient(conn)
 
-	msg := chat.Message{
+	msg := pb.Message{
 		Tag: "lisence",
 		Text: "GNU licence by Ubuntu 20.04LTS",
 		TimeStanp: "09:01:2021::00:35:45"

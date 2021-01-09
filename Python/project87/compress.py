@@ -1,77 +1,65 @@
-import sys
-from bitstring import Bits
-from bitstring import ConstBitStream
-from math import log2
+from bitstring import ConstBitStream, Bits, BitArray, ReadError
 from math import ceil
+from math import log2
+import sys
+
 
 def main():
-    if len(sys.argv) > 2:
-        file = open(sys.argv[1], "r")
-        fileOUT = open(sys.argv[2], "a")
-        msg = ConstBitStream(Bits(file))
-        msg = Bits(file).bin
-    else:
-        msg = ''
-    
-    keys = ['E']
-    output = ''
-    elemt = 'E'
+    file = open(sys.argv[1], "rb")
+    msg = ConstBitStream(file)
 
-    for i in msg:
-        elemt = str(elemt+i)
+    s_in = BitArray()
+    keys = {Bits(''):0}
+    s_out = BitArray()
+    count = 1
+    n_bits = 0
+    while True:
+        try:
+            s_in.append(msg.read(1))
+        except ReadError:
+            break
         
-        if elemt[1:] not in keys:
-            print("dictonary: %s " % keys)
-            n = ceil(log2(len(keys)))
-            print("n: %i " % n)
-
-            #x = output = yb
-            y = elemt[:-1]
-            b = elemt[-1:]            
-
+        #Se a palavra nao tiver no dicionario
+        if Bits(s_in) not in keys:
+            # x = yb
+            y = s_in[:-1]
+            b = s_in[-1:]
             
-            y = y.replace('E', '')
-            b = b.replace('E', '')
+            pos = keys[Bits(y)]
             
-            keys.append(str(y)+str(b))
-
-            if y == '':
-                y = 'E'
-
-            print("y: %s " % y)
-            print("b: %s " % b)
-
-            pos = keys.index(y)
-
-            pos_bin = ('{0:0' + str(n) + 'b}').format(pos)
-
-            print("pos_bin: %s " % pos_bin)
-
+            #log base 2 |keys|
+            n_bits = ceil(log2(len(keys)))
             
-            if n == 0:
-                output = output + str(b)
+            if n_bits != 0:
+                prefix = Bits(uint=int(pos), length=n_bits)
             else:
-                output = output + ( str(pos_bin) + str(b) )
+                prefix = Bits('')
             
-            if len(sys.argv) > 2 :
-                fileOUT.write(output)
+            s_out.append(Bits('0b' + str(prefix.bin) + str(b.bin)))
 
-            print("output: %s " % output)
+            keys[Bits(s_in)] = count
+            count += 1
+            s_in.clear()
 
-            elemt = 'E'
-    if len(elemt[0:]) != 0:
-        output = output + elemt[1:]
-        if len(sys.argv) > 2 :
-            fileOUT.write(output)
+    #Add padding: 00000 10101
+    #Numero de zeros é o tamanho dos bits extra para depois no descompressor saber
+    if s_in[:1].bin == Bits(1):
+        z = Bits('0b'+'0'*len(s_in))
+    else:
+        z = Bits('0b'+'1'*len(s_in))
 
-    if len(sys.argv) > 2 :
-        file.close()
-        fileOUT.close()
-    print(keys)
-    print("OUTPUT FINAL CARALHO: %s" % output)
-    print(len(output))
+    s_in.reverse()
+    s_out.reverse()
+    
+    s_out.append(s_in)
+    s_out.append(z)
 
+    s_out.reverse()
 
+    with open(sys.argv[2], 'wb') as f_out:
+        s_out.tofile(f_out)
+
+    file.close()
 
 if __name__ == "__main__":
     main()
