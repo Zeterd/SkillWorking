@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 	"net"
-	"goole.org/x/net/context"
-	"goole.golang.org/grpc"
+	"google.org/x/net/context"
+	"google.golang.org/grpc"
 
 	 pb"github.com/Zeterd/SkillWorking/Go/project"
 )
