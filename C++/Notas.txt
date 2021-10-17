@@ -1,0 +1,5 @@
+Compilar com GCC e executar
+
+    $ gcc file.cpp -o binaryFile -lstdc++
+    $ ./binaryFile
+
